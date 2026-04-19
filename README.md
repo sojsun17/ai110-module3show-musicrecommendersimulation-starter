@@ -37,7 +37,7 @@ UserProfile: favorite_genre, favorite_mood, target_energy.
 System Architecture & Logic
 The following flowchart visualizes how a single user profile is compared against the entire song catalog to produce a ranked list:
 
-![System Workflow](images/workflow_diagram.png)
+![System Workflow](images/copilotGeneratedWorkflow.png)
 
 The Algorithm Recipe
 Genre Anchor (+2.0): If the song genre matches the user's preference, it receives a heavy bonus. This ensures the recommendation stays within the user's preferred style.
@@ -94,20 +94,20 @@ You can add more tests in `tests/test_recommender.py`.
 When I shifted the algorithm's focus, the system’s behavior changed from being a rigid "Genre-First" filter to a more fluid "Vibe-First" recommender. Reducing the genre weight from 2.0 to 0.5 caused the system to stop gatekeeping by category; instead of only seeing Rock songs for my "Melancholic Rock" profile, the system began suggesting "Sad" songs from any genre that hit the target energy of 0.55. When experimenting with technical features like tempo, the results became even more granular, though it risked over-complicating the "vibe" by penalizing great songs just for being a few BPM off. Across different users, the system proved highly adaptive: it successfully isolated "Library Rain" for the Chill Lofi fan and "Black Hole Sun" for the Rock fan, but the "Adversarial" test revealed a key bias—if energy is weighted too heavily, the system completely ignores the user's emotional "Mood" preference in favor of raw intensity.
 
 **Baseline Pop Results:**
-![Baseline Results](images/baseline_test.png)
+![Baseline Results](images/baseline.png)
 
 **Custom Melancholic Rock Results:**
-![Rock Results](images/melancholic_rock_results.png)
+![Rock Results](images/recOutput.png)
 
 **Diverse Profiles Batch Test:**
-![Multiple Profiles](images/multiple_profiles_test.png)
+![Multiple Profiles](images/testingMultiple.png)
 ---
 
 ## Limitations and Risks
 
 
 The primary limitation of this recommender is its heavy reliance on manual tagging, meaning if a song is mislabeled in the CSV, it effectively disappears from relevant searches. Because the system lacks natural language processing, it has no understanding of lyrics or cultural context; it cannot tell the difference between a song that is "Sad" because of its melody and one that is "Sad" because of its story. Furthermore, the small catalog of only 20 tracks creates a diversity bottleneck, where the same "perfect matches" like Black Hole Sun will always dominate the top results, creating a "Filter Bubble" that prevents users from discovering new genres. Finally, the linear energy math is a blunt instrument that treats all energy gaps equally, failing to account for how human ears perceive the difference between "chill" and "intense" music across different styles.
-![Adversarial Bias Test](images/adversarial_test.png)
+![Adversarial Bias Test](images/adversary.png)
 ---
 
 
@@ -125,6 +125,9 @@ Building this simulation made me realize that recommendation systems are basical
 I also started to see how bias naturally shows up depending on how those weights are set. For example, since I weighted genre more heavily, the system would sometimes pick a song in the “right” genre even if the mood didn’t match what the user asked for. That kind of creates a filter bubble, where certain songs or even whole genres get pushed out just because of how I designed the scoring. When I tested edge cases, it became clear that if you prioritize things like energy over mood, the system can completely miss the point and recommend something that technically fits the numbers but feels totally off. It made me realize how easy it is for the actual human intent to get lost just because of how the math is set up.
 
 ---
+
+
+
 
 ## 7. `model_card_template.md`
 
