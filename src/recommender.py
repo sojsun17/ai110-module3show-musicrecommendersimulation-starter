@@ -66,11 +66,11 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     """
     Compute a recommendation score for one song against user preferences.
 
-    Scoring recipe:
-    - Add 2.0 points when song genre matches the favorite genre.
-    - Add 1.0 point when song mood matches the favorite mood.
-    - Add an energy closeness score using:
-      1.0 - abs(target_energy - song_energy)
+        Scoring recipe:
+        - Add 1.0 point when song genre matches the favorite genre.
+        - Add 1.0 point when song mood matches the favorite mood.
+        - Add a weighted energy closeness score using:
+            2.0 * (1.0 - abs(target_energy - song_energy))
 
     Args:
         user_prefs: Preference dictionary containing at least
@@ -86,16 +86,16 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     reasons: List[str] = []
 
     if song["genre"] == user_prefs["favorite_genre"]:
-        total_score += 2.0
+        total_score += 1.0
         reasons.append("Genre match (+1.0)")
 
     if song["mood"] == user_prefs["favorite_mood"]:
         total_score += 1.0
-        reasons.append("Mood match (+2.0)")
+        reasons.append("Mood match (+1.0)")
 
-    energy_score = 1.0 - abs(user_prefs["target_energy"] - song["energy"])
+    energy_score = 2.0 * (1.0 - abs(user_prefs["target_energy"] - song["energy"]))
     total_score += energy_score
-    reasons.append(f"Energy match (+{energy_score:.2f})")
+    reasons.append(f"Energy match x2.0 (+{energy_score:.2f})")
 
     return total_score, reasons
 
