@@ -9,3 +9,13 @@ id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
 8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
 9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
 10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
+11,Creep,Radiohead,rock,sad,0.35,92,0.1,0.5,0.2
+12,The Sound of Silence,Disturbed,rock,sad,0.45,130,0.2,0.4,0.1
+13,Hurt,Johnny Cash,rock,sad,0.25,90,0.1,0.3,0.8
+14,Boulevard of Broken Dreams,Green Day,rock,sad,0.65,167,0.4,0.5,0.05
+15,Black Hole Sun,Soundgarden,rock,sad,0.55,105,0.3,0.4,0.1
+16,Blue Collar Ballad,Red Dirt Road,country,nostalgic,0.48,96,0.67,0.55,0.82
+17,Concrete Jungle Gospel,The Meridians,soul/r&b,uplifting,0.66,104,0.88,0.76,0.41
+18,Permafrost,Hollow Drift,dark ambient,eerie,0.14,44,0.12,0.18,0.97
+19,Saturday in Cali,Wavefront,reggae,carefree,0.60,88,0.86,0.80,0.58
+20,Neon Pagoda,Silk Circuit,city pop,dreamy,0.71,116,0.78,0.84,0.29

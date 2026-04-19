@@ -19,16 +19,40 @@ Replace this paragraph with your own summary of what your version does.
 
 Explain your design in plain language.
 
-Some prompts to answer:
+My version of the recommender system uses a weighted content-based filtering approach, where each song is treated as a set of attributes and compared against a user’s personalized “Vibe Profile.” Each song is described by its genre and mood, which are categorical features, as well as its energy level, which is a numerical value between 0.0 and 1.0. The user profile stores their ideal preferences for these same attributes, allowing the system to measure how well each song aligns with what they’re looking for. The scoring logic prioritizes genre as the strongest signal, awarding +2.0 points for a match, followed by mood with +1.0 point. Energy is handled differently, using a linear decay formula (1.0 − |UserEnergy − SongEnergy|) to reward songs that are closest to the user’s desired energy level rather than simply favoring high or low values. After calculating a total score for every song in the dataset, the system sorts all songs from highest to lowest score and returns the top K recommendations.
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+Song Features: title, genre, mood, energy (float).
 
-You can include a simple diagram or bullet list if helpful.
+UserProfile Features: fav_genre, fav_mood, target_energy (float).
 
+
+My current plan:
+My version of the recommender uses a Weighted Content-Based Filtering approach. It treats every song as a collection of data points and compares them against a user's specific "Vibe Profile."
+
+Data Features
+Song Features: title, genre, mood, energy (0.0–1.0).
+
+UserProfile: favorite_genre, favorite_mood, target_energy.
+
+System Architecture & Logic
+The following flowchart visualizes how a single user profile is compared against the entire song catalog to produce a ranked list:
+
+![Mermaid diagram](copilot generated workflow.png)
+
+
+The Algorithm Recipe
+Genre Anchor (+2.0): If the song genre matches the user's preference, it receives a heavy bonus. This ensures the recommendation stays within the user's preferred style.
+
+Mood Modifier (+1.0): If the mood matches, a secondary bonus is applied to refine the "feeling" of the recommendation.
+
+Energy Proximity (Up to +1.0): Calculated as 1.0 - abs(user_energy - song_energy). This rewards songs that are closer to the user's target intensity.
+
+Final Ranking: All scores are summed (max 4.0), and the system sorts the songs to return the Top K results.
+
+Potential Biases
+Genre Over-Prioritization: Because Genre is worth twice as much as Mood, the system may ignore a perfectly "Sad" song if it belongs to a different genre, potentially creating a "Genre Filter Bubble."
+
+Small Catalog Limitation: With only 20 songs, the system might struggle to find a "perfect" match, leading to recommendations that only meet one of the three criteria.
 ---
 
 ## Getting Started
